@@ -1,0 +1,72 @@
+<!doctype html>
+<title>Upload image</title>
+<body>
+    <style>
+        .button {
+            background-color: cadetblue;
+            border: none;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .button {border-radius: 12px;}
+        label {
+            background-color: gray;
+            color: white;
+            padding: 0.5rem;
+            font-family: sans-serif;
+            border-radius: 0.3rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        #file-chosen{
+            margin-left: 0.3rem;
+            font-family: sans-serif;
+        }
+    </style>
+    
+
+    <h1 style="text-align: center;">Upload image file to detect persons</h1>
+    <form method=post enctype=multipart/form-data style="
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    ">
+        <div style="margin-top: 30px;">
+            <input type="file" name=file id="actual-btn" hidden/>
+            <label for="actual-btn">Choose File</label>
+            <span id="file-chosen">No file chosen</span>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <input type=submit value="Upload and detect" class="button" >
+        </div>
+        
+    </form>
+    
+    <div style="margin-top: 60px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;    
+        align-items: center;">
+        <h2 style="text-align: center;margin-bottom: 30px;">or using camera</h2>
+        <a href="/live" class="button" style="width: 200px;text-decoration: none;background-color: burlywood;font-weight: 600;">Open camera</a>
+    </div>
+
+    <script>
+        const actualBtn = document.getElementById('actual-btn');
+
+        const fileChosen = document.getElementById('file-chosen');
+
+        actualBtn.addEventListener('change', function(){
+        fileChosen.textContent = this.files[0].name
+        })
+    </script>
+</body>

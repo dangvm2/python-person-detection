@@ -1,0 +1,30 @@
+<html> 
+ <head> 
+   <title>Live video detect</title> 
+ </head> 
+ <body> 
+   <style>
+     .button {
+            background-color: cadetblue;
+            border: none;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .button {border-radius: 12px;}
+   </style>
+   <div style="display: flex;flex-direction: column; justify-content: center;align-items: center;">
+    <h1> Live video detect </h1>
+    <form action="{{ url_for('index') }}" style="display: flex;justify-content: center;margin-bottom: 30px;">
+      <input type=submit value="Back" class="button">
+    </form>
+    <img src="{{ url_for('video_feed') }}" alt="Loading camera..."> 
+   </div>
+   
+ </body> 
+</html> 

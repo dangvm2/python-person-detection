@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+</head>
+<body>
+    <style>
+        .button {
+            background-color: cadetblue;
+            border: none;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .button {border-radius: 12px;}
+    </style>
+    <h2 style="text-align: center;">Find out: {{countPerson}} persons</h2>
+    <form action="{{ url_for('index') }}" style="display: flex;justify-content: center;margin-bottom: 30px;">
+        <input type=submit value="Do it again" class="button">
+    </form>
+    <div style="display: flex;justify-content: center;">
+        <img src= {{ url_for('static',filename = 'images/res/' + person_image)}} alt="Person Image">
+    </div>    
+</body>
+</html>
