@@ -2,7 +2,7 @@ from flask import Flask, flash, request, jsonify, render_template, redirect, url
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = 'static/images/'
-RESULT_FOLDER = 'static/images/res'
+RESULT_FOLDER = 'static/images/res/'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -103,7 +103,9 @@ def index():
             path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(path)
             image = cv2.imread(path)
-            image, count = detect_image(image, yolo, all_classes)      
+            image, count = detect_image(image, yolo, all_classes)  
+            if not os.path.exists(app.config['RESULT_FOLDER']):
+                os.makedirs(app.config['RESULT_FOLDER'])     
             cv2.imwrite(app.config['RESULT_FOLDER'] + file.filename, image)
             fileDetected = os.path.join(app.config['RESULT_FOLDER'] , file.filename)
             return redirect(url_for('show_result', name=file.filename, count=count))
@@ -118,6 +120,8 @@ def live():
    return render_template('live.html') 
 
 def gen():
+   if not os.path.exists(app.config['RESULT_FOLDER']):
+        os.makedirs(app.config['RESULT_FOLDER']) 
    vc = cv2.VideoCapture(0)
    while True: 
        rval, frame = vc.read() 
@@ -125,6 +129,7 @@ def gen():
        cv2.imwrite(app.config['RESULT_FOLDER'] + '/picFromCam.jpg', image)
        yield (b'--frame\r\n' 
               b'Content-Type: image/jpeg\r\n\r\n' + open(app.config['RESULT_FOLDER'] + '/picFromCam.jpg', 'rb').read() + b'\r\n') 
+   vc.release()
 
 @app.route('/video_feed') 
 def video_feed():
